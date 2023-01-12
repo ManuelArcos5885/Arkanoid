@@ -3,6 +3,7 @@ package Arkanoid;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Toolkit;
 import java.util.List;
 
 
@@ -34,6 +35,7 @@ public class MiCanvas  extends Canvas{
 	
 	@Override
 	public void paint(Graphics g) {
+		Toolkit.getDefaultToolkit().sync();
 		this.setBackground(Color.BLACK);
 		
 		for (Actor a : this.personajesPantalla) {

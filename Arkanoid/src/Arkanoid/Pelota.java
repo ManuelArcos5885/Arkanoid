@@ -4,8 +4,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 public class Pelota extends Actor {
-	private int velocidadX = 1;
-	private int velocidadY = 1;
+	private int velocidadX = 5;
+	private int velocidadY = 5;
 	
 	
 	public Pelota() {

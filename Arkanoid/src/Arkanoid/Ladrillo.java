@@ -47,7 +47,7 @@ public class Ladrillo extends Actor {
 
 	public void paint(Graphics g) {
 		
-		g.fillRect(this.x, this.y, this.ancho, this.alto);
+		
 		switch (this.color) {
 		case "rojo":
 			g.setColor(Color.RED);
@@ -71,6 +71,7 @@ public class Ladrillo extends Actor {
 		default:
 			break;
 		}
+		g.fillRect(this.x, this.y, this.ancho, this.alto);
 	}
 	
 	public void actua(){
