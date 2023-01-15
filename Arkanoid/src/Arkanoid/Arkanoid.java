@@ -1,7 +1,10 @@
 package Arkanoid;
 
 import java.awt.BorderLayout;
-import java.awt.Window;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
@@ -13,13 +16,14 @@ import javax.swing.JOptionPane;
 
 
 
-
 public class Arkanoid {
 	private static Arkanoid instance = null;
 	private static int FPS = 60;
 	private JFrame ventana = null;
 	private List<Actor> listActores = null;
 	private MiCanvas canvas = null;
+	private Jugador jugador = null;
+	private Pelota pelota =null;
 	
 
 	public static Arkanoid getInstance(){
@@ -28,13 +32,18 @@ public class Arkanoid {
 		}
 		return instance;
 	}
-	
+	/**
+	 * 
+	 * 
+	 * 
+	 */
 	public Arkanoid(){
 		listActores = creaListaActores();
 		
+		
 		canvas = new MiCanvas(listActores);
 		
-		JFrame ventana = new JFrame("Arkanoid");
+		ventana = new JFrame("Arkanoid");
 		ventana.setBounds(0, 0, 800, 600);
 		
 		ventana.getContentPane().setLayout(new BorderLayout());
@@ -50,18 +59,57 @@ public class Arkanoid {
 				apagar();
 			}
 		});
+		
+		//establece posicion del raton
+		canvas.addMouseMotionListener(new MouseAdapter() {
+			@Override
+			public void mouseMoved(MouseEvent e) {
+				super.mouseMoved(e);
+				jugador.asegurarJugadorAlCanvas(e.getX(), e.getY());
+			}
+		});
+		
+		
+		// Desvío los eventos de teclado hasta el jugador
+				canvas.addKeyListener(new KeyAdapter() {
+					@Override
+					public void keyPressed(KeyEvent e) {
+						super.keyPressed(e);
+						jugador.keyPressed(e);
+					}
+
+					@Override
+					public void keyReleased(KeyEvent e) {
+						super.keyReleased(e);
+						jugador.keyReleased(e);
+					}
+				});
+	
+	
+			
 	}
+	/**
+	 * 
+	 * 
+	 * @return
+	 */
+		
 	
+		public MiCanvas getCanvas() {
+			return canvas;
+		}
 	
-	
-	
-	
+	/**
+	 * 
+	 * 
+	 * @param args
+	 */
 	
 	
 	public static void main(String[] args) {
 		
 		
-		Arkanoid.getInstance().juego();;
+		Arkanoid.getInstance().juego();
 		
 		
 		
@@ -93,7 +141,8 @@ public class Arkanoid {
 	public void juego() {
 		int millisPorCadaFrame = (1000/FPS);
 		do {
-			
+			System.out.println(Arkanoid.getInstance().getCanvas().getWidth());
+			System.out.println(Arkanoid.getInstance().getCanvas().getHeight());
 			long millisAntesDeProcesarEscena = new Date().getTime();
 			
 			
@@ -104,6 +153,8 @@ public class Arkanoid {
 				a.actua();
 				
 			}
+			
+			comprobarColisionPelota();
 			
 			
 			long millisDespuesDeProcesarEscena = new Date().getTime();
@@ -118,6 +169,24 @@ public class Arkanoid {
 			}
 		} while (true);
 	}
+	/***
+	 * 
+	 * 
+	 * 
+	 */
+	
+	public void comprobarColisionPelota() {
+		for (int i = 0; i < listActores.size(); i++) {
+			if (listActores.get(0).getX() >= listActores.get(i).getX() && 
+					listActores.get(0).getX() <= listActores.get(i).getAncho() &&
+					listActores.get(0).getY() >= listActores.get(i).getX() && 
+					listActores.get(0).getX() <= listActores.get(i).getAlto()) {
+				pelota.setVelocidadX(pelota.getVelocidadX() * -1);
+				pelota.setVelocidadY(pelota.getVelocidadY() * -1);
+			}
+		}
+	}
+	
 	
 	
 	
@@ -126,11 +195,11 @@ public class Arkanoid {
 	 * @return
 	 */
 	
-	public static List<Actor> creaListaActores(){
+	public List<Actor> creaListaActores(){
 		List<Actor> listActores = new ArrayList<Actor>();
-		Jugador jugador = new Jugador(100,30,400,500);
-		Pelota pelota = new Pelota();
-		
+		jugador = new Jugador(100,30,400,500);
+		pelota = new Pelota();
+		listActores.add(pelota);
 		int x = 30;
 		int y = 200;
 		int contadorFila = 1;
@@ -147,7 +216,7 @@ public class Arkanoid {
 		}
 		
 		listActores.add(jugador);
-		listActores.add(pelota);
+		
 		return listActores;
 	}
 	

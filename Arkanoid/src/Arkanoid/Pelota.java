@@ -3,13 +3,14 @@ package Arkanoid;
 import java.awt.Color;
 import java.awt.Graphics;
 
+
 public class Pelota extends Actor {
 	private int velocidadX = 5;
 	private int velocidadY = 5;
 	
 	
 	public Pelota() {
-			
+		super(30,30,400,400);	
 	}
 	
 
@@ -70,15 +71,13 @@ public class Pelota extends Actor {
 
 
 	public void actua(){
-		this.x = this.x + this.velocidadX;
-		
-		if (this.x >= 800 || this.x <= 0 ) {
+		this.x += this.velocidadX;
+		if (this.x < 0 || (this.x + this.ancho) > Arkanoid.getInstance().getCanvas().getWidth()) {
 			this.velocidadX = -this.velocidadX;
 		}
 		
-		this.y = this.y + this.velocidadY;
-		
-		if (this.y >= 600 || this.x <= 0 ) {
+		this.y += this.velocidadY;
+		if (this.y < 0 || (this.y + this.alto) > Arkanoid.getInstance().getCanvas().getHeight()) {
 			this.velocidadY = -this.velocidadY;
 		}
 	}
