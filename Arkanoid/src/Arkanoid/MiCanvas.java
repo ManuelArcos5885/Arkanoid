@@ -4,12 +4,15 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Toolkit;
+import java.awt.image.BufferStrategy;
 import java.util.List;
 
 
 public class MiCanvas  extends Canvas{
 	private List<Actor> personajesPantalla;
-
+	private BufferStrategy strategy = null;
+	
+	
 	public MiCanvas() {
 		super();
 	}
@@ -35,6 +38,10 @@ public class MiCanvas  extends Canvas{
 	
 	@Override
 	public void paint(Graphics g) {
+		if (this.strategy == null) {
+			this.createBufferStrategy(2);
+			
+		}
 		Toolkit.getDefaultToolkit().sync();
 		this.setBackground(Color.BLACK);
 		

@@ -141,8 +141,7 @@ public class Arkanoid {
 	public void juego() {
 		int millisPorCadaFrame = (1000/FPS);
 		do {
-			System.out.println(Arkanoid.getInstance().getCanvas().getWidth());
-			System.out.println(Arkanoid.getInstance().getCanvas().getHeight());
+			
 			long millisAntesDeProcesarEscena = new Date().getTime();
 			
 			
