@@ -10,7 +10,7 @@ public class Pelota extends Actor {
 	
 	
 	public Pelota() {
-		super(30,30,400,400);	
+		super(20,20,400,400);	
 	}
 	
 

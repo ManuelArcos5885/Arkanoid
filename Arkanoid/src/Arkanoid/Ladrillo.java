@@ -3,6 +3,8 @@ package Arkanoid;
 import java.awt.Color;
 import java.awt.Graphics;
 
+
+
 public class Ladrillo extends Actor {
 	private String color;
 	
@@ -88,9 +90,15 @@ public class Ladrillo extends Actor {
 				+ ", hashCode()=" + hashCode() + "]";
 	}
 	
+	/**
+	 * 
+	 * 
+	 * 
+	 */
 	
-	
-	
+	public void colisionaCon(Actor a) {
+		Arkanoid.getInstance().eliminarActor(this);
+	}
 	
 	
 

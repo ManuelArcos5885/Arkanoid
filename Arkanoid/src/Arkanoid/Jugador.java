@@ -11,7 +11,7 @@ public class Jugador extends Actor {
 	private int velocidad = 5;
 	
 	public Jugador() {
-			
+		super(125,30,400,500);	
 	}
 	
 
@@ -21,8 +21,9 @@ public class Jugador extends Actor {
 
 	@Override
 	public void paint(Graphics g) {
-		g.fillRect(this.x, this.y, this.ancho, this.alto);
 		g.setColor(Color.MAGENTA);
+		g.fillRect(this.x, this.y, this.ancho, this.alto);
+		
 		
 	}
 	
@@ -33,8 +34,30 @@ public class Jugador extends Actor {
 	
 		asegurarJugadorAlCanvas(this.x, this.y);	
 	}
+	/**
+	 * 
+	 * 
+	 * 
+	 * @param x
+	 * @param y
+	 */
+	public void mover(int posicionRatonX) {
+		//no haria falta puesto que antes de ser pintado se comprueba con el metodo
+		//asegurar que se encuentra dentro del canvas
+		if (posicionRatonX <= Arkanoid.getInstance().getCanvas().getWidth() - this.ancho/2 && posicionRatonX >= 0 + ancho/2) {
+			setX(posicionRatonX - ancho/2);
+		}
+	}
 	
 	
+	
+	/**
+	 * 
+	 * 
+	 * 
+	 * @param x
+	 * @param y
+	 */
 	public void asegurarJugadorAlCanvas(int x, int y) {
 		this.x = x;
 		this.y = y;

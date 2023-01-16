@@ -3,6 +3,7 @@ package Arkanoid;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Toolkit;
 import java.awt.image.BufferStrategy;
 import java.util.List;
@@ -36,18 +37,30 @@ public class MiCanvas  extends Canvas{
 	}
 	
 	
-	@Override
-	public void paint(Graphics g) {
+	public void paint() {
+		//se crea el doble buffer por primera vez
 		if (this.strategy == null) {
 			this.createBufferStrategy(2);
 			
 		}
-		Toolkit.getDefaultToolkit().sync();
-		this.setBackground(Color.BLACK);
+		//se inicializa el atributo estrategia con unos de los buffers
+		strategy = getBufferStrategy();
+		
+		//resuelve problema de sincronizacion en linux
+		Toolkit.getDefaultToolkit().sync();	
+		
+		//se consigue objeto grafico del buffer de strategy para poder pintar en el
+		Graphics2D g = (Graphics2D)strategy.getDrawGraphics();
+		
+		//sirve para "limpiar" el buffer de todos los actores
+		g.setColor(Color.black);
+		g.fillRect(0, 0, this.getWidth(), this.getHeight());
 		
 		for (Actor a : this.personajesPantalla) {
 			a.paint(g);
 		}
+		//se muestra el buffer
+		strategy.show();
 	}
 	
 	

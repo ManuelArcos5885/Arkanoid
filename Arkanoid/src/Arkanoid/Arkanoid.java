@@ -1,6 +1,7 @@
 package Arkanoid;
 
 import java.awt.BorderLayout;
+import java.awt.Rectangle;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
@@ -16,6 +17,7 @@ import javax.swing.JOptionPane;
 
 
 
+
 public class Arkanoid {
 	private static Arkanoid instance = null;
 	private static int FPS = 60;
@@ -24,6 +26,9 @@ public class Arkanoid {
 	private MiCanvas canvas = null;
 	private Jugador jugador = null;
 	private Pelota pelota =null;
+	
+	private List<Actor> listaActoresAñadir = null;
+	private List<Actor> listaActoresEliminar = null;
 	
 
 	public static Arkanoid getInstance(){
@@ -65,7 +70,7 @@ public class Arkanoid {
 			@Override
 			public void mouseMoved(MouseEvent e) {
 				super.mouseMoved(e);
-				jugador.asegurarJugadorAlCanvas(e.getX(), e.getY());
+				jugador.mover(e.getX());
 			}
 		});
 		
@@ -141,11 +146,16 @@ public class Arkanoid {
 	public void juego() {
 		int millisPorCadaFrame = (1000/FPS);
 		do {
+			//establece el canvas como foco si este es distinto de canvas o es nulo
+			if (ventana.getFocusOwner() != null && !ventana.getFocusOwner().equals(canvas)) {
+				canvas.requestFocus();
+			}
+			
 			
 			long millisAntesDeProcesarEscena = new Date().getTime();
 			
 			
-			canvas.repaint();
+			canvas.paint();
 			
 		
 			for (Actor a : listActores) {
@@ -156,11 +166,14 @@ public class Arkanoid {
 			comprobarColisionPelota();
 			
 			
+			
 			long millisDespuesDeProcesarEscena = new Date().getTime();
 			int millisDeProcesamientoDeEscena = (int) (millisDespuesDeProcesarEscena - millisAntesDeProcesarEscena);
 			int millisPausa = millisPorCadaFrame - millisDeProcesamientoDeEscena;
 			millisPausa = (millisPausa < 0)? 0 : millisPausa;
 			
+			
+			//para ir a 60fps
 			try {
 				Thread.sleep(millisPausa);
 			} catch (InterruptedException e) {
@@ -175,18 +188,38 @@ public class Arkanoid {
 	 */
 	
 	public void comprobarColisionPelota() {
-		for (int i = 0; i < listActores.size(); i++) {
-			if (listActores.get(0).getX() >= listActores.get(i).getX() && 
-					listActores.get(0).getX() <= listActores.get(i).getAncho() &&
-					listActores.get(0).getY() >= listActores.get(i).getX() && 
-					listActores.get(0).getX() <= listActores.get(i).getAlto()) {
-				pelota.setVelocidadX(pelota.getVelocidadX() * -1);
-				pelota.setVelocidadY(pelota.getVelocidadY() * -1);
+		//crear "hitboxis" del tamaño de los actores
+		System.out.println(pelota.toString());
+		Rectangle rectanguloPelota = new Rectangle(pelota.getX(),pelota.getY(),pelota.getAncho(),pelota.getAlto());
+		for (Actor actor2 : listActores) {
+			Rectangle rectanguloActor2 = new Rectangle(actor2.getX(),actor2.getY(),actor2.getAncho(),actor2.getAlto());
+			
+			if (rectanguloPelota.intersects(rectanguloActor2) && rectanguloActor2 != rectanguloPelota) {
+				pelota.colisionaCon(actor2);
+				actor2.colisionaCon(pelota);
 			}
 		}
+		
 	}
-	
-	
+	/**
+	 * 
+	 * 
+	 */
+	public void actualizarActores() {
+		for (Actor actorEliminar : listaActoresEliminar) {
+			this.listActores.remove(actorEliminar);
+		}
+		
+		listaActoresEliminar.clear();
+	}
+	/**
+	 * 
+	 * 
+	 */
+	public void eliminarActor(Actor actorParaEliminar) {
+		System.out.println(actorParaEliminar.toString());
+		this.listActores.remove(actorParaEliminar);
+	}
 	
 	
 	/**
@@ -196,17 +229,17 @@ public class Arkanoid {
 	
 	public List<Actor> creaListaActores(){
 		List<Actor> listActores = new ArrayList<Actor>();
-		jugador = new Jugador(100,30,400,500);
+		jugador = new Jugador();
 		pelota = new Pelota();
 		listActores.add(pelota);
 		int x = 30;
 		int y = 200;
 		int contadorFila = 1;
-		for (int i = 1; i <= 72; i++) {
-			listActores.add(new Ladrillo(60,30,x,y,colorLadrillo(contadorFila)));
+		for (int i = 1; i <= 66; i++) {
+			listActores.add(new Ladrillo(64,30,x,y,colorLadrillo(contadorFila)));
 			
-			x += 64;
-			if(i % 12 == 0) {
+			x += 66;
+			if(i % 11 == 0) {
 				x = 30;
 				y -= 32;
 				contadorFila +=1; 

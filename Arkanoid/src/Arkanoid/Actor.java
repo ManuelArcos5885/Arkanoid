@@ -6,6 +6,7 @@ import java.awt.Graphics;
 
 
 
+
 public abstract class Actor {
 	protected int ancho = 60;
 	protected int alto = 30;
@@ -33,7 +34,8 @@ public abstract class Actor {
 	}
 
 
-	
+	public void colisionaCon(Actor a) {
+	}
 
 
 	public abstract void paint(Graphics g);
