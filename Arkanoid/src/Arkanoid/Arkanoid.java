@@ -16,10 +16,6 @@ import javax.swing.JOptionPane;
 
 
 
-
-
-
-
 public class Arkanoid {
 	private static Arkanoid instance = null;
 	private static int FPS = 60;
@@ -191,47 +187,50 @@ public class Arkanoid {
 	
 	public void comprobarColisionPelota() {
 		
-			//crear "hitboxis" del tamaño de los actores
-			Rectangle rect1 = new Rectangle(pelota.getX(), pelota.getY(), pelota.getAncho(), pelota.getAlto());
-			
-			for (Actor actor2 : this.listActores) {
-				// Evito comparar un actor consigo mismo, ya que eso siempre provocaría una colisión y no tiene sentido
-				if (!pelota.equals(actor2)) {
-					// Formo el rectángulo del actor 2
-					Rectangle rect2 = new Rectangle(actor2.getX(), actor2.getY(), actor2.getAncho(), actor2.getAlto());
-					// Si los dos rectángulos tienen alguna intersección, notifico una colisión en los dos actores
-					if (rect1.intersects(rect2)) {
-						pelota.colisionaCon(actor2); // El actor 1 colisiona con el actor 2
-						actor2.colisionaCon(pelota); // El actor 2 colisiona con el actor 1
-					}
+		//crear "hitboxis" del tamaño de los actores
+		Rectangle rect1 = new Rectangle(pelota.getX(), pelota.getY(), pelota.getAncho(), pelota.getAlto());
+		
+		for (Actor actor2 : this.listActores) {
+			// Evito comparar un actor consigo mismo, ya que eso siempre provocaría una colisión y no tiene sentido
+			if (!pelota.equals(actor2)) {
+				// Formo el rectángulo del actor 2
+				Rectangle rect2 = new Rectangle(actor2.getX(), actor2.getY(), actor2.getAncho(), actor2.getAlto());
+				// Si los dos rectángulos tienen alguna intersección, notifico una colisión en los dos actores
+				if (rect1.intersects(rect2)) {
+					pelota.colisionaCon(actor2); // El actor 1 colisiona con el actor 2
+					actor2.colisionaCon(pelota); // El actor 2 colisiona con el actor 1
 				}
 			}
-			if(pelota.getY() > 550) {
-				Arkanoid.getInstance().eliminarActor(pelota);
-				
-			}
+		}
+		reiniciarPartida();
+		
+			
 	}
 	/**
 	 * 
 	 * 
 	 */
-	public void comprobarSituacionPelota() {
-		
-		if(pelota.getY() > 550) {
-			Arkanoid.getInstance().eliminarActor(pelota);
-			String [] opciones ={"Aceptar","Cancelar"};
-			int eleccion = JOptionPane.showOptionDialog(ventana,"¿Desea empezar una nueva partida?","Salir de la aplicación",
+	public void reiniciarPartida() {
+		if(pelota.getY() >= canvas.getHeight() - pelota.getAlto()) {
+			Arkanoid.getInstance().eliminarActor(pelota);	
+			String [] opciones ={"Aceptar","Salir"};
+			int eleccion = JOptionPane.showOptionDialog(ventana,"¿Desea empezar una nueva parrtida?","GAME OVER",
 			JOptionPane.YES_NO_OPTION,
 			JOptionPane.QUESTION_MESSAGE, null, opciones, "Aceptar");
-			if (eleccion == JOptionPane.YES_OPTION) {
-				añadirActor(new Pelota());
-				
+			if (eleccion == JOptionPane.NO_OPTION) {
+				System.exit(0);;
 			}
 			else {
-				System.exit(0);
+				
+				listActores.clear();
+				listActores = creaListaActores();
+				canvas.setPersonajesPantalla(listActores);
 			}
+			
+			
 		}
 	}
+
 	
 	/**
 	 * 
