@@ -208,14 +208,7 @@ public class Arkanoid {
 			}
 			if(pelota.getY() > 550) {
 				Arkanoid.getInstance().eliminarActor(pelota);
-				String [] opciones ={"Aceptar","Cancelar"};
-				int eleccion = JOptionPane.showOptionDialog(ventana,"¿Desea empezar una nueva partida?","Salir de la aplicación",
-				JOptionPane.YES_NO_OPTION,
-				JOptionPane.QUESTION_MESSAGE, null, opciones, "Aceptar");
-				if (eleccion == JOptionPane.YES_OPTION) {
-					Pelota pelota = new Pelota();
-					Arkanoid.getInstance().añadirActor(pelota);
-				}
+				
 			}
 	}
 	/**
