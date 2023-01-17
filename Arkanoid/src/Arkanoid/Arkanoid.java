@@ -28,7 +28,7 @@ public class Arkanoid {
 	private MiCanvas canvas = null;
 	private Jugador jugador = null;
 	private Pelota pelota =null;
-	
+	private List<Actor> listaActoresAñadir = new ArrayList<Actor>();
 	private List<Actor> listaActoresEliminar = new ArrayList<Actor>();
 	
 
@@ -208,15 +208,49 @@ public class Arkanoid {
 			}
 			if(pelota.getY() > 550) {
 				Arkanoid.getInstance().eliminarActor(pelota);
+				String [] opciones ={"Aceptar","Cancelar"};
+				int eleccion = JOptionPane.showOptionDialog(ventana,"¿Desea empezar una nueva partida?","Salir de la aplicación",
+				JOptionPane.YES_NO_OPTION,
+				JOptionPane.QUESTION_MESSAGE, null, opciones, "Aceptar");
+				if (eleccion == JOptionPane.YES_OPTION) {
+					Pelota pelota = new Pelota();
+					Arkanoid.getInstance().añadirActor(pelota);
+				}
 			}
 	}
+	/**
+	 * 
+	 * 
+	 */
+	public void comprobarSituacionPelota() {
 		
+		if(pelota.getY() > 550) {
+			Arkanoid.getInstance().eliminarActor(pelota);
+			String [] opciones ={"Aceptar","Cancelar"};
+			int eleccion = JOptionPane.showOptionDialog(ventana,"¿Desea empezar una nueva partida?","Salir de la aplicación",
+			JOptionPane.YES_NO_OPTION,
+			JOptionPane.QUESTION_MESSAGE, null, opciones, "Aceptar");
+			if (eleccion == JOptionPane.YES_OPTION) {
+				añadirActor(new Pelota());
+				
+			}
+			else {
+				System.exit(0);
+			}
+		}
+	}
 	
 	/**
 	 * 
 	 * 
 	 */
 	public void actualizaActores() {
+		for (Actor actorAñadir : this.listaActoresAñadir) {
+			this.listActores.add(actorAñadir);
+		}
+		listaActoresAñadir.clear();
+		
+		
 		for (Actor actorEliminar : this.listaActoresEliminar) {
 			this.listActores.remove(actorEliminar);
 		}
@@ -232,6 +266,14 @@ public class Arkanoid {
 		listaActoresEliminar.add(actorParaEliminar);
 	}
 	
+	/**
+	 * 
+	 * 
+	 */
+	public void añadirActor(Actor actorAñadir) {
+		//para evitar problemas de intentar imprimir un actor ya eliminado
+		listaActoresAñadir.add(actorAñadir);
+	}
 	
 	/**
 	 * 
