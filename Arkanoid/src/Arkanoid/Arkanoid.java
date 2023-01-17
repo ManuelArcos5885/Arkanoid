@@ -26,7 +26,7 @@ public class Arkanoid {
 	private Pelota pelota =null;
 	private List<Actor> listaActoresAñadir = new ArrayList<Actor>();
 	private List<Actor> listaActoresEliminar = new ArrayList<Actor>();
-	
+	private int ladrillosDestruidos = 1;
 
 	public static Arkanoid getInstance(){
 		if (instance == null) {
@@ -78,13 +78,17 @@ public class Arkanoid {
 					public void keyPressed(KeyEvent e) {
 						super.keyPressed(e);
 						jugador.keyPressed(e);
+						pelota.keyPressed(e);
 					}
 
 					@Override
 					public void keyReleased(KeyEvent e) {
 						super.keyReleased(e);
 						jugador.keyReleased(e);
+						pelota.keyReleased(e);
 					}
+					
+					
 				});
 	
 	
@@ -140,14 +144,32 @@ public class Arkanoid {
 	 * @param canvas
 	 * @param listActores
 	 */
+	
+	public boolean laPelotaEStaQuieta() {
+		if (pelota.getVelocidadX() == 0) {
+			return true;
+
+		}
+		return false;
+	
+	}
+	/*
+	 * 
+	 * 
+	 * 
+	 * 
+	 */
 	public void juego() {
 		int millisPorCadaFrame = (1000/FPS);
+		
 		do {
 			//establece el canvas como foco si este es distinto de canvas o es nulo
 			
 			if (ventana.getFocusOwner() != null && !ventana.getFocusOwner().equals(canvas)) {
 				canvas.requestFocus();
 			}
+			
+			
 			
 			
 			long millisAntesDeProcesarEscena = new Date().getTime();
@@ -237,6 +259,7 @@ public class Arkanoid {
 	 * 
 	 */
 	public void actualizaActores() {
+		
 		for (Actor actorAñadir : this.listaActoresAñadir) {
 			this.listActores.add(actorAñadir);
 		}
@@ -245,8 +268,13 @@ public class Arkanoid {
 		
 		for (Actor actorEliminar : this.listaActoresEliminar) {
 			this.listActores.remove(actorEliminar);
+			ladrillosDestruidos += 1;
 		}
 		listaActoresEliminar.clear();
+		
+		if (ladrillosDestruidos % 15 == 0) {
+			aumentaVelocidadPelota();
+		}
 		
 	}
 	/**
@@ -268,6 +296,30 @@ public class Arkanoid {
 	}
 	
 	/**
+	 * 
+	 * @return
+	 */
+	
+	public void aumentaVelocidadPelota(){
+		if (pelota.getVelocidadX() > 0) {
+			pelota.setVelocidadX(pelota.getVelocidadX() + 1);
+		}
+		else {
+			pelota.setVelocidadX(pelota.getVelocidadX() - 1);
+		}
+		if (pelota.getVelocidadY() > 0) {
+			pelota.setVelocidadY(pelota.getVelocidadY() + 1);
+		}
+		else {
+			pelota.setVelocidadY(pelota.getVelocidadY() - 1);
+		}
+		ladrillosDestruidos = 1;
+
+		
+	}
+	/**
+	 * 
+	 * 
 	 * 
 	 * @return
 	 */
