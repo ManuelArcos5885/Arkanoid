@@ -18,6 +18,8 @@ import javax.swing.JOptionPane;
 
 
 
+
+
 public class Arkanoid {
 	private static Arkanoid instance = null;
 	private static int FPS = 60;
@@ -27,8 +29,7 @@ public class Arkanoid {
 	private Jugador jugador = null;
 	private Pelota pelota =null;
 	
-	private List<Actor> listaActoresAñadir = null;
-	private List<Actor> listaActoresEliminar = null;
+	private List<Actor> listaActoresEliminar = new ArrayList<Actor>();
 	
 
 	public static Arkanoid getInstance(){
@@ -147,6 +148,7 @@ public class Arkanoid {
 		int millisPorCadaFrame = (1000/FPS);
 		do {
 			//establece el canvas como foco si este es distinto de canvas o es nulo
+			
 			if (ventana.getFocusOwner() != null && !ventana.getFocusOwner().equals(canvas)) {
 				canvas.requestFocus();
 			}
@@ -165,7 +167,7 @@ public class Arkanoid {
 			
 			comprobarColisionPelota();
 			
-			
+			actualizaActores();
 			
 			long millisDespuesDeProcesarEscena = new Date().getTime();
 			int millisDeProcesamientoDeEscena = (int) (millisDespuesDeProcesarEscena - millisAntesDeProcesarEscena);
@@ -188,37 +190,46 @@ public class Arkanoid {
 	 */
 	
 	public void comprobarColisionPelota() {
-		//crear "hitboxis" del tamaño de los actores
-		System.out.println(pelota.toString());
-		Rectangle rectanguloPelota = new Rectangle(pelota.getX(),pelota.getY(),pelota.getAncho(),pelota.getAlto());
-		for (Actor actor2 : listActores) {
-			Rectangle rectanguloActor2 = new Rectangle(actor2.getX(),actor2.getY(),actor2.getAncho(),actor2.getAlto());
-			
-			if (rectanguloPelota.intersects(rectanguloActor2) && rectanguloActor2 != rectanguloPelota) {
-				pelota.colisionaCon(actor2);
-				actor2.colisionaCon(pelota);
-			}
-		}
 		
+			//crear "hitboxis" del tamaño de los actores
+			Rectangle rect1 = new Rectangle(pelota.getX(), pelota.getY(), pelota.getAncho(), pelota.getAlto());
+			
+			for (Actor actor2 : this.listActores) {
+				// Evito comparar un actor consigo mismo, ya que eso siempre provocaría una colisión y no tiene sentido
+				if (!pelota.equals(actor2)) {
+					// Formo el rectángulo del actor 2
+					Rectangle rect2 = new Rectangle(actor2.getX(), actor2.getY(), actor2.getAncho(), actor2.getAlto());
+					// Si los dos rectángulos tienen alguna intersección, notifico una colisión en los dos actores
+					if (rect1.intersects(rect2)) {
+						pelota.colisionaCon(actor2); // El actor 1 colisiona con el actor 2
+						actor2.colisionaCon(pelota); // El actor 2 colisiona con el actor 1
+					}
+				}
+			}
+			if(pelota.getY() > 550) {
+				Arkanoid.getInstance().eliminarActor(pelota);
+			}
 	}
+		
+	
 	/**
 	 * 
 	 * 
 	 */
-	public void actualizarActores() {
-		for (Actor actorEliminar : listaActoresEliminar) {
+	public void actualizaActores() {
+		for (Actor actorEliminar : this.listaActoresEliminar) {
 			this.listActores.remove(actorEliminar);
 		}
-		
 		listaActoresEliminar.clear();
+		
 	}
 	/**
 	 * 
 	 * 
 	 */
 	public void eliminarActor(Actor actorParaEliminar) {
-		System.out.println(actorParaEliminar.toString());
-		this.listActores.remove(actorParaEliminar);
+		//para evitar problemas de intentar imprimir un actor ya eliminado
+		listaActoresEliminar.add(actorParaEliminar);
 	}
 	
 	

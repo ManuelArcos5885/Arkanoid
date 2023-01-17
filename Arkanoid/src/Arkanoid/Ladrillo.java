@@ -5,6 +5,7 @@ import java.awt.Graphics;
 
 
 
+
 public class Ladrillo extends Actor {
 	private String color;
 	
@@ -98,6 +99,7 @@ public class Ladrillo extends Actor {
 	
 	public void colisionaCon(Actor a) {
 		Arkanoid.getInstance().eliminarActor(this);
+		
 	}
 	
 	

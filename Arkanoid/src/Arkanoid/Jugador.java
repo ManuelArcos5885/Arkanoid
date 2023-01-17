@@ -107,5 +107,8 @@ public class Jugador extends Actor {
 		return "Jugador [getAncho()=" + getAncho() + ", getAlto()=" + getAlto() + ", getX()="
 				+ getX() + ", getY()=" + getY();
 	}
+	
+	
+	
 
 }

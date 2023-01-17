@@ -82,6 +82,19 @@ public class Pelota extends Actor {
 		}
 	}
 	
-	
+	/**
+	 * 
+	 * 
+	 * 
+	 */
+	public void colisionaCon(Actor a) {
+		this.velocidadY = -this.velocidadY;
+		if (UtilsArray.obtenerNumeroAzar(0, 100) > 50) {
+			this.velocidadX = -this.velocidadX;
+		}
+		else {
+			this.velocidadX = this.velocidadX;
+		}
+	}
 
 }
