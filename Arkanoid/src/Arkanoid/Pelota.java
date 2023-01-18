@@ -2,11 +2,12 @@ package Arkanoid;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.event.KeyEvent;
 
 
 public class Pelota extends Actor {
-	private int velocidadX = 5;
-	private int velocidadY = 5;
+	private int velocidadX = 0;
+	private int velocidadY = 0;
 	
 	
 	public Pelota() {
@@ -94,6 +95,23 @@ public class Pelota extends Actor {
 		}
 		else {
 			this.velocidadX = this.velocidadX;
+		}
+	}
+	public void keyPressed (KeyEvent e) {
+		switch (e.getKeyCode()) {
+		case KeyEvent.VK_SPACE:
+			setVelocidadX(5);
+			setVelocidadY(5);
+		
+	
+		}
+	}
+	
+	public void keyReleased (KeyEvent e) {
+		switch (e.getKeyCode()) {
+		case KeyEvent.VK_SPACE:
+			setVelocidadX(5);
+			setVelocidadY(5);
 		}
 	}
 

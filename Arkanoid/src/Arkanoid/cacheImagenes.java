@@ -4,6 +4,7 @@ import java.applet.Applet;
 import java.applet.AudioClip;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.net.URL;
 
 import java.util.HashMap;
 
