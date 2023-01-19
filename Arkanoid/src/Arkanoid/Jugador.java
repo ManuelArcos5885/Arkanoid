@@ -8,15 +8,15 @@ import java.awt.event.KeyEvent;
 
 public class Jugador extends Actor {
 	private boolean izquierda = false, derecha = false;
-	private int velocidad = 5;
+	private int velocidad = 7;
 	
 	public Jugador() {
-		super(125,30,400,500);	
+		super(125,30,400,500,null);	
 	}
 	
 
 	public Jugador(int i, int j, int k, int l) {
-		super(i,j,k,l);
+		super(i,j,k,l,null);
 	}
 
 	@Override

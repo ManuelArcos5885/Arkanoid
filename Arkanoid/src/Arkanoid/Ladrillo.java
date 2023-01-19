@@ -14,7 +14,7 @@ public class Ladrillo extends Actor {
 	
 	
 	public Ladrillo(int i, int j, int x, int y, String string) {
-		super(i,j,x,y);
+		super(i,j,x,y,null);
 		this.color=string;
 		
 	}

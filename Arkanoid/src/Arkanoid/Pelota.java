@@ -1,8 +1,10 @@
 package Arkanoid;
 
-import java.awt.Color;
+
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
+
+import org.rmrsoft.spaceInvaders.ImagesCache;
 
 
 public class Pelota extends Actor {
@@ -11,7 +13,7 @@ public class Pelota extends Actor {
 	
 	
 	public Pelota() {
-		super(20,20,400,300);	
+		super(20,20,400,300,cacheImagenes.getInstance().imprimirImagen(cacheImagenes.IMAGEN_PELOTA));	
 	}
 	
 
@@ -65,9 +67,7 @@ public class Pelota extends Actor {
 	}
 
 	public void paint(Graphics g) {
-		g.setColor(Color.WHITE);
-		g.fillOval(this.x,this.y,this.ancho,this.alto);
-		
+		g.drawImage(this.img, this.x, this.y, null);
 	}
 
 
@@ -114,5 +114,7 @@ public class Pelota extends Actor {
 			setVelocidadY(5);
 		}
 	}
+	
+	
 
 }

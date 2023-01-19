@@ -1,6 +1,7 @@
 package Arkanoid;
 
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 
 
 
@@ -12,7 +13,7 @@ public abstract class Actor {
 	protected int alto = 30;
 	protected int x = UtilsArray.obtenerNumeroAzar(0, 200);
 	protected int y = UtilsArray.obtenerNumeroAzar(0, 200);
-	
+	protected BufferedImage img;
 	
 	
 	
@@ -25,12 +26,13 @@ public abstract class Actor {
 	
 
 
-	public Actor(int ancho, int alto, int x, int y) {
+	public Actor(int ancho, int alto, int x, int y,BufferedImage img) {
 		super();
 		this.ancho = ancho;
 		this.alto = alto;
 		this.x = x;
 		this.y = y;
+		this.setImg(img);
 	}
 
 
@@ -104,6 +106,22 @@ public abstract class Actor {
 
 	public void setY(int y) {
 		this.y = y;
+	}
+
+
+
+	
+
+	public BufferedImage getImg() {
+		return img;
+	}
+
+
+
+
+
+	public void setImg(BufferedImage img) {
+		this.img = img;
 	}
 
 
