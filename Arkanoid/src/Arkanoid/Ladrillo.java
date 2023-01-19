@@ -13,8 +13,9 @@ public class Ladrillo extends Actor {
 	
 	
 	
-	public Ladrillo(int i, int j, int x, int y, String string) {
-		super(i,j,x,y,null);
+	public Ladrillo(int x, int y, String string) {
+		super(x,y,cacheImagenes.getInstance().imprimirImagen(cacheImagenes.IMAGEN_LADRILLO));
+		
 		this.color=string;
 		
 	}
@@ -23,9 +24,9 @@ public class Ladrillo extends Actor {
 
 
 
-	public Ladrillo(String color) {
+	public Ladrillo() {
 		super();
-		this.color = color;
+		
 	}
 
 	
@@ -48,34 +49,7 @@ public class Ladrillo extends Actor {
 
 
 
-	public void paint(Graphics g) {
-		
-		
-		switch (this.color) {
-		case "rojo":
-			g.setColor(Color.RED);
-			break;
-		case "amarillo":
-			g.setColor(Color.YELLOW);
-			break;
-		case "azul":
-			g.setColor(Color.BLUE);
-			break;
-		case "verde":
-			g.setColor(Color.GREEN);
-			break;
-		case "rosa":
-			g.setColor(Color.PINK);
-			break;
-		case "naranja":
-			g.setColor(Color.ORANGE);
-			break;
-		
-		default:
-			break;
-		}
-		g.fillRect(this.x, this.y, this.ancho, this.alto);
-	}
+	
 	
 	public void actua(){
 	}

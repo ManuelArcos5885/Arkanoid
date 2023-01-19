@@ -4,7 +4,6 @@ package Arkanoid;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 
-import org.rmrsoft.spaceInvaders.ImagesCache;
 
 
 public class Pelota extends Actor {
@@ -13,7 +12,7 @@ public class Pelota extends Actor {
 	
 	
 	public Pelota() {
-		super(20,20,400,300,cacheImagenes.getInstance().imprimirImagen(cacheImagenes.IMAGEN_PELOTA));	
+		super(400,300,cacheImagenes.getInstance().imprimirImagen(cacheImagenes.IMAGEN_PELOTA));	
 	}
 	
 
@@ -66,9 +65,7 @@ public class Pelota extends Actor {
 		return "Pelota [velocidadX=" + velocidadX + ", velocidadY=" + velocidadY + "]";
 	}
 
-	public void paint(Graphics g) {
-		g.drawImage(this.img, this.x, this.y, null);
-	}
+	
 
 
 	public void actua(){

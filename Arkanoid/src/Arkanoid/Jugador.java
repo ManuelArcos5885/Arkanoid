@@ -11,21 +11,15 @@ public class Jugador extends Actor {
 	private int velocidad = 7;
 	
 	public Jugador() {
-		super(125,30,400,500,null);	
+		super(400,500,cacheImagenes.getInstance().imprimirImagen(cacheImagenes.IMAGEN_JUGADOR));	
 	}
 	
 
-	public Jugador(int i, int j, int k, int l) {
-		super(i,j,k,l,null);
+	public Jugador(int k, int l) {
+		super(k,l,null);
 	}
 
-	@Override
-	public void paint(Graphics g) {
-		g.setColor(Color.MAGENTA);
-		g.fillRect(this.x, this.y, this.ancho, this.alto);
-		
-		
-	}
+	
 	
 	public void actua() {
 		

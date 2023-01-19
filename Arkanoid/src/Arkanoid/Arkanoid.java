@@ -333,7 +333,7 @@ public class Arkanoid {
 		int y = 200;
 		int contadorFila = 1;
 		for (int i = 1; i <= 66; i++) {
-			listActores.add(new Ladrillo(64,30,x,y,colorLadrillo(contadorFila)));
+			listActores.add(new Ladrillo(x,y,colorLadrillo(contadorFila)));
 			
 			x += 66;
 			if(i % 11 == 0) {

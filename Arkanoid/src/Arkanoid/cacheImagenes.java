@@ -11,6 +11,8 @@ import javax.imageio.ImageIO;
 
 public class cacheImagenes {
 	public static String IMAGEN_PELOTA = "pelota_Arkanoid.png";
+	public static String IMAGEN_LADRILLO = "ladrillo.gif";
+	public static String IMAGEN_JUGADOR = "jugados_Arkanoid.gif";
 	private static cacheImagenes instance = null;
 	//almacen de imagenes
 	private HashMap<String, BufferedImage> sprites = new HashMap<String, BufferedImage>();
@@ -54,7 +56,7 @@ public class cacheImagenes {
 		BufferedImage imagen = sprites.get(nombreImagen);
 		if (imagen == null) {
 			imagen = introducirImagenesEnHashMap("imagenes/" + nombreImagen);
-			sprites.put(nombreImagen, imagen);
+			sprites.put(nombreImagen,imagen);
 		}
 		
 		return imagen;

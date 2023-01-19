@@ -42,13 +42,13 @@ public class MiCanvas  extends Canvas{
 		if (this.strategy == null) {
 			this.createBufferStrategy(2);
 			
+		
+			//se inicializa el atributo estrategia con unos de los buffers
+			strategy = getBufferStrategy();
+		
+			//resuelve problema de sincronizacion en linux
+			Toolkit.getDefaultToolkit().sync();	
 		}
-		//se inicializa el atributo estrategia con unos de los buffers
-		strategy = getBufferStrategy();
-		
-		//resuelve problema de sincronizacion en linux
-		Toolkit.getDefaultToolkit().sync();	
-		
 		//se consigue objeto grafico del buffer de strategy para poder pintar en el
 		Graphics2D g = (Graphics2D)strategy.getDrawGraphics();
 		
@@ -59,6 +59,13 @@ public class MiCanvas  extends Canvas{
 		for (Actor a : this.personajesPantalla) {
 			a.paint(g);
 		}
+		
+		if(Arkanoid.getInstance().laPelotaEStaQuieta()) {
+			g.setColor(Color.WHITE);
+
+			g.drawString ("Pulsa Espacio para comenzar juego", 300, 380);
+		}
+
 		//se muestra el buffer
 		strategy.show();
 	}
