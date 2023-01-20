@@ -1,5 +1,7 @@
 package Arkanoid;
 
+
+
 import java.awt.BorderLayout;
 import java.awt.Rectangle;
 import java.awt.event.KeyAdapter;
@@ -16,11 +18,12 @@ import javax.swing.JOptionPane;
 
 
 
+
 public class Arkanoid {
 	private static Arkanoid instance = null;
 	private static int FPS = 60;
 	private JFrame ventana = null;
-	private List<Actor> listActores = null;
+	private List<Actor> listActores = new ArrayList<Actor>();
 	private MiCanvas canvas = null;
 	private Jugador jugador = null;
 	private Pelota pelota =null;

@@ -12,7 +12,8 @@ import javax.imageio.ImageIO;
 public class cacheImagenes {
 	public static String IMAGEN_PELOTA = "pelota_Arkanoid.gif";
 	public static String IMAGEN_LADRILLO = "ladrillo.gif";
-	public static String IMAGEN_JUGADOR = "IMAGEN_JUGADOR.gif";
+	public static String IMAGEN_JUGADOR = "IMAGEN_JUGDOR.gif";
+	
 	private static cacheImagenes instance = null;
 	//almacen de imagenes
 	private HashMap<String, BufferedImage> sprites = new HashMap<String, BufferedImage>();
@@ -29,7 +30,7 @@ public class cacheImagenes {
 	
 	
 	
-	public BufferedImage introducirImagenesEnHashMap(String nombreImagen) {
+	private BufferedImage introducirImagenesEnHashMap(String nombreImagen) {
 		URL url = null;
 		//adjuntamos la direccion de la imagen a su url
 		
