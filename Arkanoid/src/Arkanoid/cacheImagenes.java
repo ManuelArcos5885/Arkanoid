@@ -10,9 +10,9 @@ import javax.imageio.ImageIO;
 
 
 public class cacheImagenes {
-	public static String IMAGEN_PELOTA = "pelota_Arkanoid.png";
+	public static String IMAGEN_PELOTA = "pelota_Arkanoid.gif";
 	public static String IMAGEN_LADRILLO = "ladrillo.gif";
-	public static String IMAGEN_JUGADOR = "jugados_Arkanoid.gif";
+	public static String IMAGEN_JUGADOR = "IMAGEN_JUGADOR.gif";
 	private static cacheImagenes instance = null;
 	//almacen de imagenes
 	private HashMap<String, BufferedImage> sprites = new HashMap<String, BufferedImage>();
@@ -35,13 +35,13 @@ public class cacheImagenes {
 		
 		try {
 			url = getClass().getResource(nombreImagen);
-			this.sprites.put(nombreImagen, ImageIO.read(url));
+			return ImageIO.read(url);
 			
 		
 		}
-		catch (Exception ex) {
-			System.out.println("No se pudo cargar el recurso " + nombreImagen);
-			ex.printStackTrace();
+		catch (Exception e) {
+			e.printStackTrace();
+			System.exit(0);
 		}
 		return null;
 	}
@@ -55,7 +55,9 @@ public class cacheImagenes {
 	public BufferedImage imprimirImagen(String nombreImagen) {
 		BufferedImage imagen = sprites.get(nombreImagen);
 		if (imagen == null) {
+
 			imagen = introducirImagenesEnHashMap("imagenes/" + nombreImagen);
+
 			sprites.put(nombreImagen,imagen);
 		}
 		

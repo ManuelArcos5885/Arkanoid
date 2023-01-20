@@ -11,8 +11,8 @@ import java.awt.image.BufferedImage;
 public abstract class Actor {
 	protected int ancho = 60;
 	protected int alto = 30;
-	protected int x = 0;
-	protected int y = 0;
+	protected int x;
+	protected int y;
 	protected BufferedImage img;
 	
 	
@@ -27,7 +27,6 @@ public abstract class Actor {
 
 
 	public Actor(int x, int y,BufferedImage img) {
-		super();
 		this.x = x;
 		this.y = y;
 		this.setImg(img);
@@ -122,6 +121,8 @@ public abstract class Actor {
 
 	public void setImg(BufferedImage img) {
 		this.img = img;
+		this.ancho = this.img.getWidth();
+		this.alto = this.img.getHeight();
 		
 	}
 
