@@ -2,6 +2,7 @@ package Arkanoid;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 
 
 
@@ -10,11 +11,14 @@ public class Ladrillo extends Actor {
 	private String color;
 	
 	
-	
+	public Ladrillo() {
+		super();
+		
+	}
 	
 	
 	public Ladrillo(int x, int y, String string) {
-		super(x,y,cacheImagenes.getInstance().imprimirImagen(cacheImagenes.IMAGEN_LADRILLO));
+		super(x,y,eleccionColor(string));
 		
 		this.color=string;
 		
@@ -22,12 +26,37 @@ public class Ladrillo extends Actor {
 
 
 
+	public static BufferedImage eleccionColor(String color) {
+		
+		switch (color) {
+		case "naranja":
+			
+			return cacheImagenes.getInstance().getImagen(cacheImagenes.IMAGEN_LADRILLONARANJA);
+		case "rojo":
+			
+			return cacheImagenes.getInstance().getImagen(cacheImagenes.IMAGEN_LADRILLOROJO);
+		case "azul":
+					
+			return cacheImagenes.getInstance().getImagen(cacheImagenes.IMAGEN_LADRILLOAZUL);
+		case "celeste":
+			
+			return cacheImagenes.getInstance().getImagen(cacheImagenes.IMAGEN_LADRILLOCELESTE);
+		case "amarillo":
+			
+			return cacheImagenes.getInstance().getImagen(cacheImagenes.IMAGEN_LADRILLOAMARILLO);
+		case "morado":
+			
+			return cacheImagenes.getInstance().getImagen(cacheImagenes.IMAGEN_LADRILLOMORADO);
 
-
-	public Ladrillo() {
-		super();
+		default:
+			break;
+		}
+		
+		return null;
 		
 	}
+
+	
 
 	
 

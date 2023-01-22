@@ -59,6 +59,8 @@ public class MiCanvas  extends Canvas{
 		for (Actor a : this.personajesPantalla) {
 			a.paint(g);
 		}
+		Arkanoid.getInstance().devolverContadorVidas();
+		Arkanoid.getInstance().devolverContadorVidas().paint(g);
 		
 		if(Arkanoid.getInstance().laPelotaEStaQuieta()) {
 			g.setColor(Color.WHITE);

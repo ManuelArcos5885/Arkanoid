@@ -10,9 +10,22 @@ import javax.imageio.ImageIO;
 
 
 public class cacheImagenes {
-	public static String IMAGEN_PELOTA = "pelota_Arkanoid.gif";
-	public static String IMAGEN_LADRILLO = "ladrillo.gif";
-	public static String IMAGEN_JUGADOR = "IMAGEN_JUGDOR.gif";
+	public static String IMAGEN_PELOTA = "pelota_Arkanoid.png";
+	public static String IMAGEN_LADRILLOAMARILLO = "ladrillo_amarillo.png";
+	public static String IMAGEN_LADRILLONARANJA = "ladrillo_naranja.png";
+	public static String IMAGEN_LADRILLOAZUL = "ladrillo_azul.png";
+	public static String IMAGEN_LADRILLOCELESTE = "ladrillo_celeste.png";
+	public static String IMAGEN_LADRILLOROJO = "ladrillo_rojo.png";
+	public static String IMAGEN_LADRILLOMORADO = "ladrillo_morado.png";
+	public static String IMAGEN_JUGADOR = "IMAGEN_JUGADOR.png";
+	
+	public static String IMAGEN_3VIDAS = "3vidas.png";
+	public static String IMAGEN_2VIDAS = "2vidas.png";
+	public static String IMAGEN_1VIDAS = "1vida.png";
+	public static String IMAGEN_0VIDAS = "0vidas.png";
+	
+	public  static String IMAGEN_METRALLETA = "metralleta.png";
+	public  static String IMAGEN_DISPARO = "disparo.png";	
 	
 	private static cacheImagenes instance = null;
 	//almacen de imagenes
@@ -53,7 +66,7 @@ public class cacheImagenes {
 	 * 
 	 */
 	
-	public BufferedImage imprimirImagen(String nombreImagen) {
+	public BufferedImage getImagen(String nombreImagen) {
 		BufferedImage imagen = sprites.get(nombreImagen);
 		if (imagen == null) {
 

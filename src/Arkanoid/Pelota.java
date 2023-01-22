@@ -6,20 +6,22 @@ import java.awt.event.KeyEvent;
 
 
 
+
+
 public class Pelota extends Actor {
 	private int velocidadX = 0;
 	private int velocidadY = 0;
 	
 	
 	public Pelota() {
-		super(400,300,cacheImagenes.getInstance().imprimirImagen(cacheImagenes.IMAGEN_PELOTA));	
+		
 	}
 	
 
 	
 
 	public Pelota(int velocidadX, int velocidadY) {
-		super();
+		super(400,300,cacheImagenes.getInstance().getImagen(cacheImagenes.IMAGEN_PELOTA));
 		this.velocidadX = velocidadX;
 		this.velocidadY = velocidadY;
 	}
@@ -86,12 +88,15 @@ public class Pelota extends Actor {
 	 * 
 	 */
 	public void colisionaCon(Actor a) {
-		this.velocidadY = -this.velocidadY;
-		if (UtilsArray.obtenerNumeroAzar(0, 100) > 50) {
-			this.velocidadX = -this.velocidadX;
-		}
-		else {
-			this.velocidadX = this.velocidadX;
+		
+		if (a instanceof Ladrillo || a instanceof Jugador) {
+			this.velocidadY = -this.velocidadY;
+			if (UtilsArray.obtenerNumeroAzar(0, 100) > 50) {
+				this.velocidadX = -this.velocidadX;
+			}
+			else {
+				this.velocidadX = this.velocidadX;
+			}
 		}
 	}
 	public void keyPressed (KeyEvent e) {

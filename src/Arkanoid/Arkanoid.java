@@ -30,6 +30,7 @@ public class Arkanoid {
 	private List<Actor> listaActoresAñadir = new ArrayList<Actor>();
 	private List<Actor> listaActoresEliminar = new ArrayList<Actor>();
 	private int ladrillosDestruidos = 1;
+	private Vidas contadorVidas=null;
 
 	public static Arkanoid getInstance(){
 		if (instance == null) {
@@ -164,7 +165,7 @@ public class Arkanoid {
 	 */
 	public void juego() {
 		int millisPorCadaFrame = (1000/FPS);
-		
+		contadorVidas = new Vidas(3);
 		do {
 			//establece el canvas como foco si este es distinto de canvas o es nulo
 			
@@ -179,6 +180,8 @@ public class Arkanoid {
 			
 			
 			canvas.paint();
+			
+			
 			
 		
 			for (Actor a : listActores) {
@@ -238,24 +241,44 @@ public class Arkanoid {
 	public void reiniciarPartida() {
 		if(pelota.getY() >= canvas.getHeight() - pelota.getAlto()) {
 			Arkanoid.getInstance().eliminarActor(pelota);	
-			String [] opciones ={"Aceptar","Salir"};
-			int eleccion = JOptionPane.showOptionDialog(ventana,"¿Desea empezar una nueva parrtida?","GAME OVER",
-			JOptionPane.YES_NO_OPTION,
-			JOptionPane.QUESTION_MESSAGE, null, opciones, "Aceptar");
-			if (eleccion == JOptionPane.NO_OPTION) {
-				System.exit(0);;
+			contadorVidas.setCantidadVidas(contadorVidas.getCantidadVidas()-1);
+			if(contadorVidas.sigueLaPartida(contadorVidas) == true) {
+				pelota = new Pelota(0,0);
+				listActores.add(pelota);
+				
 			}
 			else {
 				
-				listActores.clear();
-				listActores = creaListaActores();
-				canvas.setPersonajesPantalla(listActores);
+				String [] opciones ={"Aceptar","Salir"};
+				int eleccion = JOptionPane.showOptionDialog(ventana,"¿Desea empezar una nueva parrtida?","GAME OVER",
+				JOptionPane.YES_NO_OPTION,
+				JOptionPane.QUESTION_MESSAGE, null, opciones, "Aceptar");
+				if (eleccion == JOptionPane.NO_OPTION) {
+					System.exit(0);;
+				}
+				else {
+					contadorVidas = new Vidas(3);
+					listActores.clear();
+					listActores = creaListaActores();
+					canvas.setPersonajesPantalla(listActores);
+					
+				}
+				
 			}
 			
 			
 		}
 	}
-
+	/**
+	 * 
+	 * 
+	 */
+	public Vidas devolverContadorVidas() {
+		return contadorVidas;
+		
+	}
+	
+	
 	
 	/**
 	 * 
@@ -329,8 +352,9 @@ public class Arkanoid {
 	
 	public List<Actor> creaListaActores(){
 		List<Actor> listActores = new ArrayList<Actor>();
-		jugador = new Jugador();
-		pelota = new Pelota();
+		jugador = new Jugador(400,500);
+		pelota = new Pelota(0,0);
+		
 		listActores.add(pelota);
 		int x = 30;
 		int y = 200;
@@ -349,6 +373,7 @@ public class Arkanoid {
 		
 		listActores.add(jugador);
 		
+		jugador.setAlto(jugador.getAlto());
 		return listActores;
 	}
 	
@@ -366,19 +391,19 @@ public class Arkanoid {
 			return "naranja";
 		case 2:
 			
-			return "verde";
+			return "celeste";
 		case 3:
 			
-			return "azul";
+			return "rojo";
 		case 4:
 			
-			return "rosa";
+			return "amarillo";
 		case 5:
 			
-			return "amarillo";
+			return "azul";
 		case 6:
 			
-			return "rojo";
+			return "morado";
 
 		default:
 			break;

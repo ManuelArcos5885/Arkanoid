@@ -1,7 +1,6 @@
 package Arkanoid;
 
-import java.awt.Color;
-import java.awt.Graphics;
+
 import java.awt.event.KeyEvent;
 
 
@@ -11,12 +10,12 @@ public class Jugador extends Actor {
 	private int velocidad = 7;
 	
 	public Jugador() {
-		super(400,500,cacheImagenes.getInstance().imprimirImagen(cacheImagenes.IMAGEN_JUGADOR));	
+			
 	}
 	
 
-	public Jugador(int k, int l) {
-		super(k,l,null);
+	public Jugador(int x, int y) {
+		super(x,y,cacheImagenes.getInstance().getImagen(cacheImagenes.IMAGEN_JUGADOR));
 	}
 
 	
