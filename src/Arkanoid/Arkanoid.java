@@ -250,7 +250,7 @@ public class Arkanoid {
 			else {
 				
 				String [] opciones ={"Aceptar","Salir"};
-				int eleccion = JOptionPane.showOptionDialog(ventana,"¿Desea empezar una nueva parrtida?","GAME OVER",
+				int eleccion = JOptionPane.showOptionDialog(ventana,"¿Desea empezar una nueva partida?","GAME OVER",
 				JOptionPane.YES_NO_OPTION,
 				JOptionPane.QUESTION_MESSAGE, null, opciones, "Aceptar");
 				if (eleccion == JOptionPane.NO_OPTION) {

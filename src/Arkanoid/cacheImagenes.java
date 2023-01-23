@@ -29,7 +29,7 @@ public class cacheImagenes {
 	
 	private static cacheImagenes instance = null;
 	//almacen de imagenes
-	private HashMap<String, BufferedImage> sprites = new HashMap<String, BufferedImage>();
+	private HashMap<String, Object> sprites = new HashMap<String, Object>();
 	
 	
 	public static cacheImagenes getInstance() {
@@ -67,7 +67,7 @@ public class cacheImagenes {
 	 */
 	
 	public BufferedImage getImagen(String nombreImagen) {
-		BufferedImage imagen = sprites.get(nombreImagen);
+		BufferedImage imagen = (BufferedImage) sprites.get(nombreImagen);
 		if (imagen == null) {
 
 			imagen = introducirImagenesEnHashMap("imagenes/" + nombreImagen);
