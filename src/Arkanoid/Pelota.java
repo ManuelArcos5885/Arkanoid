@@ -21,7 +21,8 @@ public class Pelota extends Actor {
 	
 
 	public Pelota(int velocidadX, int velocidadY) {
-		super(400,300,cacheImagenes.getInstance().getImagen(cacheImagenes.IMAGEN_PELOTA));
+		super(400,300);
+		setSpriteActual(cacheImagenes.getInstance().getImagen(cacheImagenes.IMAGEN_PELOTA));
 		this.velocidadX = velocidadX;
 		this.velocidadY = velocidadY;
 	}
@@ -99,22 +100,33 @@ public class Pelota extends Actor {
 			}
 		}
 	}
-	public void keyPressed (KeyEvent e) {
-		switch (e.getKeyCode()) {
-		case KeyEvent.VK_SPACE:
-			setVelocidadX(5);
-			setVelocidadY(5);
-		
-	
-		}
-	}
+
 	
 	public void keyReleased (KeyEvent e) {
-		switch (e.getKeyCode()) {
-		case KeyEvent.VK_SPACE:
-			setVelocidadX(5);
-			setVelocidadY(5);
+		if(velocidadX == 0 && velocidadY == 0) {
+			switch (e.getKeyCode()) {
+			case KeyEvent.VK_SPACE:
+				setVelocidadX(5);
+				setVelocidadY(5);
+			}
 		}
+	}
+
+
+
+
+	public void keyPressed(KeyEvent e) {
+		if(velocidadX == 0 && velocidadY == 0) {
+			switch (e.getKeyCode()) {
+			
+				case KeyEvent.VK_SPACE:
+					setVelocidadX(5);
+					setVelocidadY(5);
+			}
+			
+		
+			}
+		
 	}
 	
 	

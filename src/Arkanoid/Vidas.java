@@ -16,7 +16,8 @@ public class Vidas extends Actor{
 
 
 	public Vidas(int cantidadVidas) {
-		super(630,500,cacheImagenes.getInstance().getImagen(cacheImagenes.IMAGEN_3VIDAS));
+		super(630,500);
+		setSpriteActual(cacheImagenes.getInstance().getImagen(cacheImagenes.IMAGEN_3VIDAS));
 		this.cantidadVidas = cantidadVidas;
 	}
 	/**
@@ -28,16 +29,16 @@ public class Vidas extends Actor{
 	public boolean sigueLaPartida(Vidas contVidas) {
 		switch (contVidas.getCantidadVidas()) {
 		case 3:
-			contVidas.setImg(cacheImagenes.getInstance().getImagen(cacheImagenes.IMAGEN_3VIDAS));
+			contVidas.setSpriteActual(cacheImagenes.getInstance().getImagen(cacheImagenes.IMAGEN_3VIDAS));
 			return true;
 		case 2:
-			contVidas.setImg(cacheImagenes.getInstance().getImagen(cacheImagenes.IMAGEN_2VIDAS));
+			contVidas.setSpriteActual(cacheImagenes.getInstance().getImagen(cacheImagenes.IMAGEN_2VIDAS));
 			return true;
 		case 1:
-			contVidas.setImg(cacheImagenes.getInstance().getImagen(cacheImagenes.IMAGEN_1VIDAS));
+			contVidas.setSpriteActual(cacheImagenes.getInstance().getImagen(cacheImagenes.IMAGEN_1VIDAS));
 			return true;
 		case 0:
-			contVidas.setImg(cacheImagenes.getInstance().getImagen(cacheImagenes.IMAGEN_0VIDAS));
+			contVidas.setSpriteActual(cacheImagenes.getInstance().getImagen(cacheImagenes.IMAGEN_0VIDAS));
 			return true;
 
 		default:

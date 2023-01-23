@@ -15,7 +15,8 @@ public class Jugador extends Actor {
 	
 
 	public Jugador(int x, int y) {
-		super(x,y,cacheImagenes.getInstance().getImagen(cacheImagenes.IMAGEN_JUGADOR));
+		super(x,y);
+		setSpriteActual(cacheImagenes.getInstance().getImagen(cacheImagenes.IMAGEN_JUGADOR));
 	}
 
 	

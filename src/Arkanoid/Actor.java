@@ -2,6 +2,7 @@ package Arkanoid;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.util.List;
 
 
 
@@ -13,7 +14,16 @@ public abstract class Actor {
 	protected int alto = 30;
 	protected int x;
 	protected int y;
-	protected BufferedImage img;
+	
+	
+	protected List<BufferedImage> spritesAnimacion;
+	
+	protected BufferedImage spriteActual;
+	protected int velocidadCambioSprite;
+	
+	protected int cantidadFramesOcurridos = 0;
+	
+	
 	
 	
 	
@@ -26,22 +36,42 @@ public abstract class Actor {
 	
 
 
-	public Actor(int x, int y,BufferedImage img) {
+	public Actor(int x, int y) {
 		this.x = x;
 		this.y = y;
-		this.setImg(img);
+		
 	}
-
+	/**
+	 * 
+	 * 
+	 * 
+	 * @param a
+	 */
+	
+	public void setSpriteActual(BufferedImage spriteActual) {
+		this.spriteActual = spriteActual;
+		this.ancho = this.spriteActual.getWidth();
+		this.alto = this.spriteActual.getHeight();
+	}
 
 	public void colisionaCon(Actor a) {
 	}
 
 
 	public void paint(Graphics g) {
-		g.drawImage(this.img, this.x, this.y, null);
+		g.drawImage(this.spriteActual, this.x, this.y, null);
 	}
 	
-	public abstract void actua();
+	public void actua() {
+		if(spritesAnimacion != null && spritesAnimacion.size() > 0) {
+			cantidadFramesOcurridos++;
+			if(cantidadFramesOcurridos % velocidadCambioSprite == 0) {
+				int indiceSpriteActual = spritesAnimacion.indexOf(spriteActual);
+				int indiceSpriteSiguiente = (indiceSpriteActual + 1) % spritesAnimacion.size();
+				spriteActual = spritesAnimacion.get(indiceSpriteSiguiente);
+			}
+		}
+	}
 
 
 
@@ -111,20 +141,7 @@ public abstract class Actor {
 
 	
 
-	public BufferedImage getImg() {
-		return img;
-	}
 
-
-
-
-
-	public void setImg(BufferedImage img) {
-		this.img = img;
-		this.ancho = this.img.getWidth();
-		this.alto = this.img.getHeight();
-		
-	}
 
 
 
@@ -134,6 +151,21 @@ public abstract class Actor {
 	public String toString() {
 		
 		return "Actor [ancho=" + ancho + ", alto=" + alto + ", x=" + x + ", y=" + y + "]";
+	}
+	
+	/**
+	 * 
+	 * 
+	 */
+	
+	public void setSpritesDeAnimacion(List<BufferedImage> listaAnimacion) {
+		this.spritesAnimacion = listaAnimacion;
+	}
+	
+	
+	public List<BufferedImage> getSpritesDeAnimacion() {
+		return spritesAnimacion;
+		
 	}
 	
 	

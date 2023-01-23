@@ -18,7 +18,8 @@ public class Ladrillo extends Actor {
 	
 	
 	public Ladrillo(int x, int y, String string) {
-		super(x,y,eleccionColor(string));
+		super(x,y);
+		eleccionColor(string);
 		
 		this.color=string;
 		
@@ -26,28 +27,32 @@ public class Ladrillo extends Actor {
 
 
 
-	public static BufferedImage eleccionColor(String color) {
+	public BufferedImage eleccionColor(String color) {
 		
 		switch (color) {
 		case "naranja":
-			
-			return cacheImagenes.getInstance().getImagen(cacheImagenes.IMAGEN_LADRILLONARANJA);
+			setSpriteActual(cacheImagenes.getInstance().getImagen(cacheImagenes.IMAGEN_LADRILLONARANJA));
+			break;
 		case "rojo":
 			
-			return cacheImagenes.getInstance().getImagen(cacheImagenes.IMAGEN_LADRILLOROJO);
+			setSpriteActual(cacheImagenes.getInstance().getImagen(cacheImagenes.IMAGEN_LADRILLOROJO));
+			break;
 		case "azul":
 					
-			return cacheImagenes.getInstance().getImagen(cacheImagenes.IMAGEN_LADRILLOAZUL);
+			setSpriteActual(cacheImagenes.getInstance().getImagen(cacheImagenes.IMAGEN_LADRILLOAZUL));
+			break;
 		case "celeste":
 			
-			return cacheImagenes.getInstance().getImagen(cacheImagenes.IMAGEN_LADRILLOCELESTE);
+			setSpriteActual(cacheImagenes.getInstance().getImagen(cacheImagenes.IMAGEN_LADRILLOCELESTE));
+			break;
 		case "amarillo":
 			
-			return cacheImagenes.getInstance().getImagen(cacheImagenes.IMAGEN_LADRILLOAMARILLO);
+			setSpriteActual(cacheImagenes.getInstance().getImagen(cacheImagenes.IMAGEN_LADRILLOAMARILLO));
+			break;
 		case "morado":
 			
-			return cacheImagenes.getInstance().getImagen(cacheImagenes.IMAGEN_LADRILLOMORADO);
-
+			setSpriteActual(cacheImagenes.getInstance().getImagen(cacheImagenes.IMAGEN_LADRILLOMORADO));
+			break;
 		default:
 			break;
 		}
@@ -80,8 +85,7 @@ public class Ladrillo extends Actor {
 
 	
 	
-	public void actua(){
-	}
+	
 
 
 
@@ -101,7 +105,9 @@ public class Ladrillo extends Actor {
 	 */
 	
 	public void colisionaCon(Actor a) {
+		Arkanoid.getInstance().añadirActor(new Explosion(a.getX(),a.getY()));
 		Arkanoid.getInstance().eliminarActor(this);
+		
 		
 	}
 	

@@ -307,9 +307,11 @@ public class Arkanoid {
 	 * 
 	 * 
 	 */
-	public void eliminarActor(Actor actorParaEliminar) {
+	public void eliminarActor(Actor actorParaEliminar) {		
 		//para evitar problemas de intentar imprimir un actor ya eliminado
 		listaActoresEliminar.add(actorParaEliminar);
+		
+		
 	}
 	
 	/**
